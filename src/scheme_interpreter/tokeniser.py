@@ -1,2 +1,2 @@
 def tokenise(input: str) -> list[str]:
-    return [input]
+    return [input.strip()]
