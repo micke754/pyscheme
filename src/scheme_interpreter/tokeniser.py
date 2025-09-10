@@ -1,2 +1,2 @@
 def tokenise(input: str) -> list[str]:
-    return ["42"]
+    return [input]
