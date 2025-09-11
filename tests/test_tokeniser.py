@@ -75,3 +75,47 @@ def test_tokenise_empty_list(input_text: str, expected: list[str]):
 def test_tokenise_parentheses(input_text: str, expected: list[str]):
     result = tokenise(input_text)
     assert result == expected
+
+
+@pytest.mark.parametrize(
+    "input_text,expected",
+    [
+        (
+            "(display 1 2)",
+            [
+                "(",
+                "display",
+                "1",
+                "2",
+                ")",
+            ],
+        ),
+        (
+            '(display "Hello world")',
+            [
+                "(",
+                "display",
+                '"Hello world"',
+                ")",
+            ],
+        ),
+        # (
+        #     '(string-append "Hello", " ", "world")',
+        #     [
+        #         "(",
+        #         "string-append",
+        #         '"',
+        #         "Hello",
+        #         '"',
+        #         " ",
+        #         '"',
+        #         "World",
+        #         '"',
+        #         ")",
+        #     ],
+        # ),
+    ],
+)
+def test_tokenise_string(input_text: str, expected: list[str]):
+    result = tokenise(input_text)
+    assert result == expected
