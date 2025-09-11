@@ -1,2 +1,4 @@
 def tokenise(input: str) -> list[str]:
-    return [input.strip()]
+    if not input:
+        return []
+    return input.replace("(", " ( ").replace(")", " ) ").strip().split()
