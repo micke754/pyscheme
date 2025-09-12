@@ -1,5 +1,3 @@
-# test_case = '(display "hello world")'
-# test_case = "(display 1 2)"
 test_case = '(string-append "Hello", " ", "world")'
 
 
