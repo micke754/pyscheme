@@ -100,14 +100,13 @@ def test_tokenise_parentheses(input_text: str, expected: list[str]):
             ],
         ),
         (
-            '(string-append "Hello", " ", "world")',
+            '(string-append "Hello" " " "world")',
             [
                 "(",
                 "string-append",
-                '"',
                 '"Hello"',
-                " ",
-                '"World"',
+                '" "',
+                '"world"',
                 ")",
             ],
         ),
