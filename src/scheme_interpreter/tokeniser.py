@@ -1,4 +1,6 @@
-test_case = '(string-append "Hello" " " "world")'
+# test_case = '(string-append "Hello" " " "world")'
+test_case = "(substring str 0 (- (string-length str) 3))"
+# test_case = ""
 
 if test_case:
     print("test_case:", test_case)
