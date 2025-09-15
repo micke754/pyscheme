@@ -36,22 +36,6 @@ For the Scheme expression `(+ 1 (* 2 3))`:
         ListNode
        /    |    \
       /     |     \
- SymbolNode |   ListNode
-    "+"     |   /   |   \
-            |  /    |    \
-       NumberNode  SymbolNode NumberNode
-           1         "*"        2
-                              /
-                        NumberNode
-                             3
-```
-
-Wait, let me fix that tree:
-
-```
-        ListNode
-       /    |    \
-      /     |     \
  SymbolNode |   ListNode  
     "+"     |   /   |   \
             |  /    |    \
