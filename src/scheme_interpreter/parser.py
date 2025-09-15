@@ -42,6 +42,20 @@ def parse_number(tokens: list, position: int) -> tuple:
     return node, new_position
 
 
+def parse_symbol(tokens: list, position: int) -> tuple:
+    """
+    Parse a symbol token.
+    Returns: (symbol_node, new_position)
+    """
+    if position >= len(tokens):
+        raise ParseError("Unexpected end of the input")
+
+    token = tokens[position]
+    node = symbol_node(token)
+    new_position = position + 1
+    return node, new_position
+
+
 def parse_expression(tokens: list, position: int) -> tuple:
     """
     Parse one expression starting at position
@@ -50,7 +64,6 @@ def parse_expression(tokens: list, position: int) -> tuple:
     - ast_node: the parsed_expression
     - new_position: Where to continue parsing
     """
-
     if position >= len(tokens):
         raise ParseError("Unexpected end of input")
 
@@ -59,4 +72,4 @@ def parse_expression(tokens: list, position: int) -> tuple:
     if is_number(token):
         return parse_number(tokens, position)
     else:
-        raise ParseError(f"Don't know how to parse: {token}")
+        return parse_symbol(tokens, position)
