@@ -57,5 +57,6 @@ def parse_expression(tokens: list, position: int) -> tuple:
     token = tokens[position]
 
     if is_number(token):
-        return
-
+        return parse_number(tokens, position)
+    else:
+        raise ParseError(f"Don't know how to parse: {token}")
