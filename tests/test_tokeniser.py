@@ -24,9 +24,13 @@ def test_tokenise_atom_number(input_text: str, expected: list[str]):
         (" 123 ", ["123"]),
         ("  -42", ["-42"]),
         ("  3.12    ", ["3.12"]),
+        ("\n3.12\t", ["3.12"]),
+        ("\r-3\t", ["-3"]),
+        ('\r"hello steel"\t', ['"hello steel"']),
+        ('\rstring-append', ['string-append']),
     ],
 )
-def test_tokenise_white_space(input_text: str, expected: list[str]):
+def test_tokenise_whitespaces_with_chars(input_text: str, expected: list[str]):
     result = tokenise(input_text)
     assert result == expected
 
@@ -35,13 +39,26 @@ def test_tokenise_white_space(input_text: str, expected: list[str]):
     "input_text,expected",
     [
         ("", []),
-        (" ", []),
     ],
 )
 def test_tokenise_empty_list(input_text: str, expected: list[str]):
     result = tokenise(input_text)
     assert result == expected
 
+@pytest.mark.parametrize(
+    "input_text,expected",
+    [
+        (" ", []),
+        ("\n", []),
+        ("\t ", []),
+        ("\r ", []),
+        ("\n\r ", []),
+        ("\n\r\t ", []),
+    ],
+)
+def test_tokenise_whitespaces(input_text: str, expected: list[str]):
+    result = tokenise(input_text)
+    assert result == expected
 
 @pytest.mark.parametrize(
     "input_text,expected",
