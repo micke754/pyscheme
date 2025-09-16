@@ -24,7 +24,7 @@ def is_number(token: str) -> bool:
         return False
 
 
-def parse_number(tokens: list, position: int) -> tuple:
+def parse_number(tokens: list[str], position: int) -> tuple:
     """
     Parse a number token.
 
@@ -42,7 +42,7 @@ def parse_number(tokens: list, position: int) -> tuple:
     return node, new_position
 
 
-def parse_symbol(tokens: list, position: int) -> tuple:
+def parse_symbol(tokens: list[str], position: int) -> tuple:
     """
     Parse a symbol token.
     Returns: (symbol_node, new_position)
@@ -56,7 +56,37 @@ def parse_symbol(tokens: list, position: int) -> tuple:
     return node, new_position
 
 
-def parse_expression(tokens: list, position: int) -> tuple:
+def parse_list(tokens: list, position: int) -> tuple:
+    """
+    Parse a list expression: (element1 element2 ...)
+    Returns: (list_node, new_position)
+    """
+
+    if position >= len(tokens) or tokens[position] != "(":
+        raise ParseError("Expected opening parenthesis")
+
+    # Skip opening parenthesis
+    position += 1
+    elements = []
+
+    # Parse elements until closing parenthesis
+    while position < len(tokens) and tokens[position] != ")":
+        element_node, position = parse_expression(
+            tokens, position
+        )  # Recursion?
+        elements.append(element_node)
+
+    # Check for closing parenthesis
+    if position >= len(tokens):
+        raise ParseError("Missing closing parenthesis")
+
+    # Skip closing parenthesis
+    position += 1
+
+    return list_node(elements), position
+
+
+def parse_expression(tokens: list[str], position: int) -> tuple:
     """
     Parse one expression starting at position
 
@@ -69,7 +99,9 @@ def parse_expression(tokens: list, position: int) -> tuple:
 
     token = tokens[position]
 
-    if is_number(token):
+    if token == "(":
+        return parse_list(tokens, position)
+    elif is_number(token):
         return parse_number(tokens, position)
     else:
         return parse_symbol(tokens, position)

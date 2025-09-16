@@ -1,5 +1,28 @@
 import pytest
-from scheme_interpreter.parser import parse_expression, number_node, symbol_node
+from scheme_interpreter.parser import (
+    list_node,
+    parse_expression,
+    number_node,
+    symbol_node,
+)
+
+
+# Parantheses
+def test_parse_empty_list():
+    """
+    Parse () into an empty list node.
+
+    This tests:
+    - Recognition of list syntax
+    - Handling of matched parantheses
+    - Creation of list nodes
+    """
+    tokens = ["(", ")"]
+    result_node, new_position = parse_expression(tokens, 0)
+
+    expected_node = list_node([])
+    assert result_node == expected_node
+    assert new_position == 2  # Consumed both tokens "(" ")"
 
 
 # Symbols
